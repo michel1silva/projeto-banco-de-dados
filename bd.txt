@@ -1,0 +1,50 @@
+CREATE TABLE genero (
+  id_genero INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE usuario (
+  id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  senha VARCHAR(100) NOT NULL,
+  data_cadastro DATE
+);
+
+CREATE TABLE ator (
+  id_ator INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  data_nascimento DATE,
+  nacionalidade VARCHAR(50)
+);
+
+CREATE TABLE filme (
+  id_filme INT PRIMARY KEY AUTO_INCREMENT,
+  titulo VARCHAR(100) NOT NULL,
+  ano_lancamento INT,
+  duracao INT,
+  sinopse TEXT,
+  id_genero INT,
+  FOREIGN KEY (id_genero) REFERENCES genero(id_genero)
+);
+
+CREATE TABLE ator_filme (
+  id_ator INT,
+  id_filme INT,
+  papel VARCHAR(100),
+  PRIMARY KEY (id_ator, id_filme),
+  FOREIGN KEY (id_ator) REFERENCES ator(id_ator),
+  FOREIGN KEY (id_filme) REFERENCES filme(id_filme)
+);
+
+CREATE TABLE avaliacao (
+  id_avaliacao INT PRIMARY KEY AUTO_INCREMENT,
+  nota DECIMAL(2,1) CHECK (nota BETWEEN 0 AND 10),
+  comentario TEXT,
+  data_avaliacao DATE,
+  id_usuario INT,
+  id_filme INT,
+  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+  FOREIGN KEY (id_filme) REFERENCES filme(id_filme),
+  UNIQUE (id_usuario, id_filme)
+);
