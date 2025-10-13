@@ -1,0 +1,6 @@
+usuario:{id_usuario [PK], nome, email, senha, data_cadastro}
+genero:{id_genero [PK], nome}
+ator:{id_ator [PK], nome, data_nascimento, nacionalidade}
+filme:{id_filme [PK], titulo, ano_lancamento, duracao, sinopse, id_genero [FK → GÊNERO]}
+avaliação:{id_avaliacao [PK], nota, comentario, data_avaliacao, id_usuario [FK → USUÁRIO], id_filme [FK → FILME]}
+ator_filme:{id_ator [FK → ATOR], id_filme [FK → FILME], papel}
